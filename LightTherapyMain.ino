@@ -127,26 +127,6 @@ void ISR() {
     interruptCounter--;
     portEXIT_CRITICAL(&timerMux);
  
-    totalInterruptCounter++;
- 
-    Serial.print("An interrupt as occurred. Total number: ");
-    Serial.println(totalInterruptCounter);
-
-    // The formattedDate format: 2018-05-28T16:00:13Z
-    formattedDate = timeClient.getFormattedDate();
-    Serial.println(formattedDate);
-  
-    // Extract date
-    int splitT = formattedDate.indexOf("T");
-    dayStamp = formattedDate.substring(0, splitT);
-    Serial.print("DATE: ");
-    Serial.println(dayStamp);
-    // Extract time
-    timeStamp = formattedDate.substring(splitT+1, formattedDate.length()-1);
-    Serial.print("HOUR: ");
-    Serial.println(timeStamp);
-    // getHours() (from 0 to 23) | getMinutes() (from 0 to 59)
-
     // turn current hours and minutes into a value [0:1]
     scaledCurrentTime = ((timeClient.getHours() * 60 + timeClient.getMinutes()) - SUNRISE) / 
       (SUNSET - SUNRISE);
